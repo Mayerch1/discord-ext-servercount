@@ -39,7 +39,6 @@ setup(name='discord-ext-help',
       keywords='py-cord extension help interactions',
       version=version,
       packages=['discord.ext.help'],
-      url='https://github.com/Mayerch1/discord-ext-help',
       project_urls={
           "Bug Tracker": "https://github.com/Mayerch1/discord-ext-help/issues"
       },
