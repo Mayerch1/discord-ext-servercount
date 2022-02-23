@@ -2,7 +2,7 @@ from setuptools import setup
 import re
 
 version = ''
-with open('discord/ext/help/__init__.py') as f:
+with open('discord/ext/servercount/__init__.py') as f:
     version = re.search(
         r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
@@ -31,16 +31,16 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 
-setup(name='discord-ext-help',
+setup(name='discord-ext-servercount',
       author='Mayerch1',
-      url='https://github.com/Mayerch1/discord-ext-help',
-      description='An extension module to make an interaction based help menu with PyCord',
+      url='https://github.com/Mayerch1/discord-ext-servercount',
+      description='An extension module to post the bots server count to popular bot lists using PyCord ',
       long_description=long_description,
-      keywords='py-cord extension help interactions',
+      keywords='py-cord extension botlist servercount TopGG',
       version=version,
-      packages=['discord.ext.help'],
+      packages=['discord.ext.servercount'],
       project_urls={
-          "Bug Tracker": "https://github.com/Mayerch1/discord-ext-help/issues"
+          "Bug Tracker": "https://github.com/Mayerch1/discord-ext-servercount/issues"
       },
       classifiers=[
           'Development Status :: 4 - Beta',
@@ -49,5 +49,5 @@ setup(name='discord-ext-help',
           'Topic :: Utilities'
       ],
       python_requires='>=3.8.0',
-      install_requires=['py-cord>=2.0.0b4']
+      install_requires=['py-cord>=2.0.0b4', 'requests']
       )

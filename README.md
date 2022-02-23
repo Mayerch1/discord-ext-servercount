@@ -1,6 +1,6 @@
-### discord-ext-help
+### discord-ext-servercount
 
-An extension to create an interaction based Help Menu.
+An extension to update the servercount of popular bot lists.
 
 **There are no front-facing docs for this and it's not on PyPI.**
 
@@ -9,7 +9,7 @@ An extension to create an interaction based Help Menu.
 Installing is done purely via git:
 
 ```py
-python -m pip install -U git+https://github.com/Mayerch1/discord-ext-help
+python -m pip install -U git+https://github.com/Mayerch1/discord-ext-servercount
 ```
 
 ## Getting Started
@@ -18,55 +18,43 @@ To setup a basic help-page, the extension needs to be loaded as cog.
 Execute the following before starting the bot.
 
 To automatically detect slash commands, the extension should be loaded at last.
-Before starting the bot, `init_help` should be called.
+Before starting the bot, `init` should be called.
 
 ```py
 import discord
-from discord.ext.help import Help
+from discord.ext.servercount import ServerCount
 
 bot = discord.Bot(...)
 # ...
-bot.load_extension('discord.ext.help.help')
+bot.load_extension('discord.ext.servercount.servercount')
 
-Help.init_help(bot, auto_detect_commands=True)
+ServerCount.init(bot, user_agent='myBot (<url>)')
 bot.run(TOKEN)
 ```
 
-To offer some more options, certain attributes can be set.
-These attributes unlock more help buttons.
+To set tokens for the bot lists, use the following functions.
 
 ```py
-Help.set_default_footer(custom_footer)
-Help.set_feedback(FEEDBACK_CHANNEL, FEEDBACK_MENTION)
-Help.invite_permissions(
-    discord.Permissions(attach_files=True)
-)
-Help.support_invite('<invite url>')
-Help.set_tos_file('legal/tos.md')
-Help.set_privacy_file('legal/privacy.md')
+ServerCount.set_token(bot_list: BotLists, token: str)
+# and/or
+ServerCount.set_token_dir(dir: str)
 ```
-
-If an error happens then an exception of type `HelpException` is raised.
-
-This second example shows how to create a custom help page:
-This can be used with or without automatic command detection.
-
-The extension will add pagination once more than one field is shown
-
+When specifying a single token, one of the supported Services must be used
 ```py
-from discord.ext import menus
-
-elements = [
-    HelpElement(cmd_name='/help', description='show this message'),
-    HelpElement(cmd_name='/fuel time', description='use this for time limited races'),
-    HelpElement(cmd_name='/fuel laps', description='use this for lap limited races')
-]
-page = HelpPage(
-    name='parameters',
-    title='QuoteBot Help',
-    description='Explain command parameters',
-    elements=elements,
-    emoji='✏️'
-)
-Help.add_page(page)
+class BotLists(Enum):
+    TopGG
+    BotsGG
+    DBL
+    Discords
+    Disforge
+    DLSpace
 ```
+
+When using `set_token_dir`, the extension searches the inter directory (non-recursive) for text files.
+Each token must be in a file, which matches it's name identical to one of the services in the `BotLists`-Enum.
+
+If the same token is specified multiple times (e.g. once in `set_token` and once in `set_token_dir`), the last set operation will be rememberd.
+
+
+### NOTE
+For security reasons, it is recommended to **NOT** use `set_token_dir`. Store your tokens in a secure credential store instead and use `set_token` for each token.
