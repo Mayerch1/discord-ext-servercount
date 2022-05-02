@@ -201,6 +201,7 @@ class ServerCount(commands.Cog):
         """This function runs every 30 minutes to automatically update your server count."""
 
         server_count = len(self.client.guilds)
+        log.info(f'posting {server_count} servers')
 
 
         for sList in self.serverList:
