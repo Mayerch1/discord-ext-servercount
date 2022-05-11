@@ -163,7 +163,7 @@ class ServerCount(commands.Cog):
     def __init__(self, client):
         self.client: discord.AutoShardedBot = client
         self.serverList = ServerList
-        self.skip_first_iteration = True
+        self.skip_first_iterations = 2
         self.post_loop.start()
 
 
@@ -228,8 +228,8 @@ class ServerCount(commands.Cog):
 
     @tasks.loop(hours=1)
     async def post_loop(self):
-        if self.skip_first_iteration:
-            self.skip_first_iteration = False
+        if self.skip_first_iterations > 0:
+            self.skip_first_iterations -= 1
             return
         await self.update_stats()
   
