@@ -49,5 +49,5 @@ setup(name='discord-ext-servercount',
           'Topic :: Utilities'
       ],
       python_requires='>=3.8.0',
-      install_requires=['py-cord>=2.0.0b4', 'requests']
+      install_requires=['py-cord-dev>=2.5.0rc5', 'requests']
       )
